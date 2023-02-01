@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: clients
-          image: ihudak/dt-clients-service:latest
+          image: ihudak/dt-clients-service:arm64
           ports:
             - containerPort: 8080
           env:
@@ -61,26 +61,26 @@ spec:
                   name: bookstore-secret
                   key: pgdb-user-pass
             - name:   DT_CLIENTS_SERVER_URL
-              value: clients
+              value: clients-svc
             - name:   DT_BOOKS_SERVER_URL
-              value:
+              value: books-svc
             - name:   DT_CART_SERVER_URL
-              value:
+              value: cart-svc
             - name:   DT_STORAGE_SERVER_URL
-              value:
+              value: storage-svc
             - name:   DT_ORDERS_SERVER_URL
-              value:
+              value: orders-svc
             - name:   DT_PAYMENT_SERVER_URL
-              value:
+              value: payment-svc
             - name:   DT_DYNAPAY_SERVER_URL
-              value:
+              value: dynapay-svc
             - name:   DT_RATINGS_SERVER_URL
-              value:
+              value: ratings-svc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: clients
+  name: clients-svc
 spec:
   selector:
     app: clients
