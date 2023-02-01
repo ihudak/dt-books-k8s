@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bookstore-configmap
+data:
+  mysql_server: mysql-service
+  pgdb_server: postgres-service
