@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storage
+  labels:
+    app: storage
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: storage
+  template:
+    metadata:
+      labels:
+        app: storage
+    spec:
+      containers:
+        - name: storage
+          image: ihudak/dt-storage-service:arm64
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DT_SERVER_PORT
+              value: "8080"
+            - name: DT_MYSQL_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: mysql_server
+            - name: DT_MYSQL_PORT
+              value: "3306"
+            - name: DT_MYSQL_DBNAME
+              value: dt_books_clients # DB NAME HERE
+            - name: DT_MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: bookstore-secret
+                  key: mysql-user-name
+            - name: DT_MYSQL_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: bookstore-secret
+                  key: mysql-user-pass
+            - name: DT_PG_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: pgdb_server
+            - name: DT_PG_PORT
+              value: "5432"
+            - name: DT_PG_DBNAME
+              value: none # DB NAME HERE
+            - name: DT_PG_USER
+              valueFrom:
+                secretKeyRef:
+                  name: bookstore-secret
+                  key: pgdb-user-name
+            - name: DT_PG_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: bookstore-secret
+                  key: pgdb-user-pass
+            - name:   DT_CLIENTS_SERVER_URL
+              value: clients-svc
+            - name:   DT_BOOKS_SERVER_URL
+              value: books-svc
+            - name:   DT_CART_SERVER_URL
+              value: cart-svc
+            - name:   DT_STORAGE_SERVER_URL
+              value: storage-svc
+            - name:   DT_ORDERS_SERVER_URL
+              value: orders-svc
+            - name:   DT_PAYMENT_SERVER_URL
+              value: payment-svc
+            - name:   DT_DYNAPAY_SERVER_URL
+              value: dynapay-svc
+            - name:   DT_RATINGS_SERVER_URL
+              value: ratings-svc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: storage-svc
+spec:
+  selector:
+    app: storage
+  type: LoadBalancer
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+      nodePort: 30004
