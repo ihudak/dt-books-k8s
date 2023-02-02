@@ -1,4 +1,3 @@
-#!bash
 kubectl apply -f k8s-clients.yaml
 kubectl apply -f k8s-books.yaml
 kubectl apply -f k8s-cart.yaml
