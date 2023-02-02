@@ -30,6 +30,13 @@ spec:
                 secretKeyRef:
                   name: bookstore-secret
                   key: mysql-user-pass
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+            requests:
+              cpu: 200m
+              memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
@@ -38,10 +45,12 @@ metadata:
 spec:
   selector:
     app: mysql
+  type: LoadBalancer
   ports:
     - port: 3306
       protocol: TCP
       targetPort: 3306
+      nodePort: 31306
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -75,6 +84,13 @@ spec:
                 secretKeyRef:
                   name: bookstore-secret
                   key: pgdb-user-pass
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+            requests:
+              cpu: 200m
+              memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
@@ -83,7 +99,9 @@ metadata:
 spec:
   selector:
     app: postgres
+  type: LoadBalancer
   ports:
     - port: 5432
       protocol: TCP
       targetPort: 5432
+      nodePort: 31432

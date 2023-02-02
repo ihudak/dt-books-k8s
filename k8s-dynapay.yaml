@@ -19,6 +19,7 @@ spec:
           image: ihudak/dt-dynapay-service:arm64
           ports:
             - containerPort: 8080
+            - containerPort: 5005
           env:
             - name: DT_SERVER_PORT
               value: "8080"
@@ -30,7 +31,7 @@ spec:
             - name: DT_MYSQL_PORT
               value: "3306"
             - name: DT_MYSQL_DBNAME
-              value: dt_books_clients # DB NAME HERE
+              value: dt_books_dynapays # DB NAME HERE
             - name: DT_MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -61,21 +62,52 @@ spec:
                   name: bookstore-secret
                   key: pgdb-user-pass
             - name:   DT_CLIENTS_SERVER_URL
-              value: clients-svc
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: clients_svc
             - name:   DT_BOOKS_SERVER_URL
-              value: books-svc
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: books_svc
             - name:   DT_CART_SERVER_URL
-              value: cart-svc
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: cart_svc
             - name:   DT_STORAGE_SERVER_URL
-              value: storage-svc
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: storage_svc
             - name:   DT_ORDERS_SERVER_URL
-              value: orders-svc
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: orders_svc
             - name:   DT_PAYMENT_SERVER_URL
-              value: payment-svc
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: payments_svc
             - name:   DT_DYNAPAY_SERVER_URL
-              value: dynapay-svc
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: dynapay_svc
             - name:   DT_RATINGS_SERVER_URL
-              value: ratings-svc
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: ratings_svc
+          resources:
+            limits:
+              cpu: 700m
+              memory: 640Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
@@ -86,7 +118,13 @@ spec:
     app: superpay
   type: LoadBalancer
   ports:
-    - port: 80
+    - name: http
+      port: 87
       protocol: TCP
       targetPort: 8080
       nodePort: 30007
+    - name: debug
+      port: 5007
+      protocol: TCP
+      targetPort: 5005
+      nodePort: 32007

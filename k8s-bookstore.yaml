@@ -30,7 +30,7 @@ spec:
             - name: DT_MYSQL_PORT
               value: "3306"
             - name: DT_MYSQL_DBNAME
-              value: dt_books_clients # DB NAME HERE
+              value: none # DB NAME HERE
             - name: DT_MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -76,6 +76,13 @@ spec:
               value: dynapay-svc
             - name:   DT_RATINGS_SERVER_URL
               value: ratings-svc
+          resources:
+            limits:
+              cpu: 700m
+              memory: 768Mi
+            requests:
+              cpu: 300m
+              memory: 512Mi
 ---
 apiVersion: v1
 kind: Service
@@ -89,4 +96,4 @@ spec:
     - port: 80
       protocol: TCP
       targetPort: 4200
-      nodePort: 30010
+      nodePort: 30000
