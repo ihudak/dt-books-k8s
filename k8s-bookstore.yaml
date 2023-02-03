@@ -60,22 +60,46 @@ spec:
                 secretKeyRef:
                   name: bookstore-secret
                   key: pgdb-user-pass
-            - name:   DT_CLIENTS_SERVER_URL
-              value: clients-svc
-            - name:   DT_BOOKS_SERVER_URL
-              value: books-svc
-            - name:   DT_CART_SERVER_URL
-              value: cart-svc
-            - name:   DT_STORAGE_SERVER_URL
-              value: storage-svc
-            - name:   DT_ORDERS_SERVER_URL
-              value: orders-svc
-            - name:   DT_PAYMENT_SERVER_URL
-              value: payment-svc
-            - name:   DT_DYNAPAY_SERVER_URL
-              value: dynapay-svc
-            - name:   DT_RATINGS_SERVER_URL
-              value: ratings-svc
+            - name:   DT_CLIENTS_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: clients_svc
+            - name:   DT_BOOKS_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: books_svc
+            - name:   DT_CART_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: cart_svc
+            - name:   DT_STORAGE_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: storage_svc
+            - name:   DT_ORDERS_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: orders_svc
+            - name:   DT_PAYMENT_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: payments_svc
+            - name:   DT_DYNAPAY_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: dynapay_svc
+            - name:   DT_RATINGS_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: ratings_svc
           resources:
             limits:
               cpu: 1000m
