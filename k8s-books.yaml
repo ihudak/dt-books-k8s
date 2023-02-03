@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: books
-          image: ihudak/dt-books-service:arm64
+          image: ihudak/dt-books-service:latest
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -61,42 +61,42 @@ spec:
                 secretKeyRef:
                   name: bookstore-secret
                   key: pgdb-user-pass
-            - name:   DT_CLIENTS_SERVER_URL
+            - name:   DT_CLIENTS_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: clients_svc
-            - name:   DT_BOOKS_SERVER_URL
+            - name:   DT_BOOKS_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: books_svc
-            - name:   DT_CART_SERVER_URL
+            - name:   DT_CART_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: cart_svc
-            - name:   DT_STORAGE_SERVER_URL
+            - name:   DT_STORAGE_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: storage_svc
-            - name:   DT_ORDERS_SERVER_URL
+            - name:   DT_ORDERS_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: orders_svc
-            - name:   DT_PAYMENT_SERVER_URL
+            - name:   DT_PAYMENT_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: payments_svc
-            - name:   DT_DYNAPAY_SERVER_URL
+            - name:   DT_DYNAPAY_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: dynapay_svc
-            - name:   DT_RATINGS_SERVER_URL
+            - name:   DT_RATINGS_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
@@ -106,7 +106,7 @@ spec:
               cpu: 700m
               memory: 640Mi
             requests:
-              cpu: 400m
+              cpu: 300m
               memory: 512Mi
 ---
 apiVersion: v1
@@ -119,7 +119,7 @@ spec:
   type: LoadBalancer
   ports:
     - name: http
-      port: 82
+      port: 80
       protocol: TCP
       targetPort: 8080
       nodePort: 30002

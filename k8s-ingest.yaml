@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: ingest
-          image: ihudak/dt-ingest-service:arm64
+          image: ihudak/dt-ingest-service:latest
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -61,42 +61,42 @@ spec:
                 secretKeyRef:
                   name: bookstore-secret
                   key: pgdb-user-pass
-            - name:   DT_CLIENTS_SERVER_URL
+            - name:   DT_CLIENTS_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: clients_svc
-            - name:   DT_BOOKS_SERVER_URL
+            - name:   DT_BOOKS_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: books_svc
-            - name:   DT_CART_SERVER_URL
+            - name:   DT_CART_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: cart_svc
-            - name:   DT_STORAGE_SERVER_URL
+            - name:   DT_STORAGE_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: storage_svc
-            - name:   DT_ORDERS_SERVER_URL
+            - name:   DT_ORDERS_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: orders_svc
-            - name:   DT_PAYMENT_SERVER_URL
+            - name:   DT_PAYMENT_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: payments_svc
-            - name:   DT_DYNAPAY_SERVER_URL
+            - name:   DT_DYNAPAY_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: dynapay_svc
-            - name:   DT_RATINGS_SERVER_URL
+            - name:   DT_RATINGS_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
@@ -106,8 +106,8 @@ spec:
               cpu: 1000m
               memory: 1Gi
             requests:
-              cpu: 700m
-              memory: 512Mi
+              cpu: 500m
+              memory: 768Mi
 ---
 apiVersion: v1
 kind: Service
@@ -119,12 +119,12 @@ spec:
   type: LoadBalancer
   ports:
     - name: http
-      port: 89
+      port: 80
       protocol: TCP
       targetPort: 8080
       nodePort: 30009
     - name: debug
-      port: 5009
+      port: 5005
       protocol: TCP
       targetPort: 5005
       nodePort: 32009

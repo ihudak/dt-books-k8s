@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: bookstore
-          image: ihudak/dt-bookstore-webapp:arm64
+          image: ihudak/dt-bookstore-webapp:latest
           ports:
             - containerPort: 4200
           env:
@@ -78,11 +78,11 @@ spec:
               value: ratings-svc
           resources:
             limits:
-              cpu: 700m
-              memory: 768Mi
+              cpu: 1000m
+              memory: 4Gi
             requests:
               cpu: 300m
-              memory: 512Mi
+              memory: 2Gi
 ---
 apiVersion: v1
 kind: Service
@@ -96,4 +96,4 @@ spec:
     - port: 80
       protocol: TCP
       targetPort: 4200
-      nodePort: 30000
+      nodePort: 32000

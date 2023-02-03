@@ -6,4 +6,5 @@ kubectl delete -f k8s-orders.yaml
 kubectl delete -f k8s-payment.yaml
 kubectl delete -f k8s-dynapay.yaml
 kubectl delete -f k8s-ingest.yaml
+kubectl delete -f k8s-ratings.yaml
 kubectl delete -f k8s-bookstore.yaml

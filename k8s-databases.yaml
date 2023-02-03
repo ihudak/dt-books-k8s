@@ -45,12 +45,10 @@ metadata:
 spec:
   selector:
     app: mysql
-  type: LoadBalancer
   ports:
     - port: 3306
       protocol: TCP
       targetPort: 3306
-      nodePort: 31306
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -99,9 +97,7 @@ metadata:
 spec:
   selector:
     app: postgres
-  type: LoadBalancer
   ports:
     - port: 5432
       protocol: TCP
       targetPort: 5432
-      nodePort: 31432
