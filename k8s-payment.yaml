@@ -122,9 +122,9 @@ spec:
       port: 80
       protocol: TCP
       targetPort: 8080
-      nodePort: 30016
+      nodePort: 30006
     - name: debug
-      port: 5006
+      port: 5005
       protocol: TCP
       targetPort: 5005
-      nodePort: 32016
+      nodePort: 32006

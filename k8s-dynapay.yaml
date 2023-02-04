@@ -124,7 +124,7 @@ spec:
       targetPort: 8080
       nodePort: 30007
     - name: debug
-      port: 5007
+      port: 5005
       protocol: TCP
       targetPort: 5005
       nodePort: 32007
