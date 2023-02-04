@@ -106,7 +106,7 @@ spec:
               cpu: 700m
               memory: 640Mi
             requests:
-              cpu: 250m
+              cpu: 300m
               memory: 256Mi
 ---
 apiVersion: v1

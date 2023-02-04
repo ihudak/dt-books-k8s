@@ -11,5 +11,5 @@ data:
   storage_svc: storage-svc
   orders_svc: orders-svc
   payments_svc: payment-svc
-  dynapay_svc: dynapay-svc
+  dynapay_svc: superpay-svc
   ratings_svc: ratings-svc
