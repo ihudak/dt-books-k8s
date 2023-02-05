@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: clients
-          image: ihudak/dt-clients-service:latest
+          image: ihudak/dt-clients-service:arm64
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -119,12 +119,12 @@ spec:
   type: LoadBalancer
   ports:
     - name: http
-      port: 80
+      port: 81
       protocol: TCP
       targetPort: 8080
       nodePort: 30001
     - name: debug
-      port: 5005
+      port: 5001
       protocol: TCP
       targetPort: 5005
       nodePort: 32001

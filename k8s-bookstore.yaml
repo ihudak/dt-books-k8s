@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: bookstore
-          image: ihudak/dt-bookstore-webapp:latest
+          image: ihudak/dt-bookstore-webapp:arm64
           ports:
             - containerPort: 4200
           env:

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: superpay
-          image: ihudak/dt-dynapay-service:latest
+          image: ihudak/dt-dynapay-service:arm64
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -106,7 +106,7 @@ spec:
               cpu: 700m
               memory: 640Mi
             requests:
-              cpu: 300m
+              cpu: 250m
               memory: 256Mi
 ---
 apiVersion: v1
@@ -119,12 +119,12 @@ spec:
   type: LoadBalancer
   ports:
     - name: http
-      port: 80
+      port: 87
       protocol: TCP
       targetPort: 8080
       nodePort: 30007
     - name: debug
-      port: 5005
+      port: 5007
       protocol: TCP
       targetPort: 5005
       nodePort: 32007

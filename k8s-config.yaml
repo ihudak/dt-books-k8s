@@ -5,11 +5,11 @@ metadata:
 data:
   mysql_server: mysql-service
   pgdb_server: postgres-service
-  clients_svc: clients-svc
-  books_svc: books-svc
-  cart_svc: cart-svc
-  storage_svc: storage-svc
-  orders_svc: orders-svc
-  payments_svc: payment-svc
-  dynapay_svc: superpay-svc
-  ratings_svc: ratings-svc
+  clients_svc: clients-svc:81
+  books_svc: books-svc:82
+  cart_svc: cart-svc:83
+  storage_svc: storage-svc:84
+  orders_svc: orders-svc:85
+  payments_svc: payment-svc:86
+  dynapay_svc: superpay-svc:87
+  ratings_svc: ratings-svc:88

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: books
-          image: ihudak/dt-books-service:latest
+          image: ihudak/dt-books-service:arm64
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -119,12 +119,12 @@ spec:
   type: LoadBalancer
   ports:
     - name: http
-      port: 80
+      port: 82
       protocol: TCP
       targetPort: 8080
       nodePort: 30002
     - name: debug
-      port: 5005
+      port: 5002
       protocol: TCP
       targetPort: 5005
       nodePort: 32002

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: ingest
-          image: ihudak/dt-ingest-service:latest
+          image: ihudak/dt-ingest-service:arm64
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -106,7 +106,7 @@ spec:
               cpu: 1000m
               memory: 1Gi
             requests:
-              cpu: 300m
+              cpu: 250m
               memory: 768Mi
 ---
 apiVersion: v1
@@ -119,12 +119,12 @@ spec:
   type: LoadBalancer
   ports:
     - name: http
-      port: 80
+      port: 89
       protocol: TCP
       targetPort: 8080
       nodePort: 30009
     - name: debug
-      port: 5005
+      port: 5009
       protocol: TCP
       targetPort: 5005
       nodePort: 32009
