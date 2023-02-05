@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: ihudak/dt-mysql:latest
+          image: ihudak/dt-mysql:arm64
           ports:
             - containerPort: 3306
           env:
@@ -68,7 +68,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: ihudak/dt-postgres:latest
+          image: ihudak/dt-postgres:arm64
           ports:
             - containerPort: 5432
           env:
