@@ -116,15 +116,12 @@ metadata:
 spec:
   selector:
     app: payment
-  type: LoadBalancer
   ports:
     - name: http
       port: 80
       protocol: TCP
       targetPort: 8080
-      nodePort: 30006
     - name: debug
       port: 5005
       protocol: TCP
       targetPort: 5005
-      nodePort: 32006

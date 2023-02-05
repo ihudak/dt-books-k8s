@@ -106,7 +106,7 @@ spec:
               cpu: 700m
               memory: 640Mi
             requests:
-              cpu: 300m
+              cpu: 200m
               memory: 256Mi
 ---
 apiVersion: v1
@@ -116,15 +116,12 @@ metadata:
 spec:
   selector:
     app: superpay
-  type: LoadBalancer
   ports:
     - name: http
       port: 80
       protocol: TCP
       targetPort: 8080
-      nodePort: 30007
     - name: debug
       port: 5005
       protocol: TCP
       targetPort: 5005
-      nodePort: 32007
