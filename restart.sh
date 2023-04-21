@@ -1,6 +1,10 @@
 kubectl apply -f k8s-config.yaml
 kubectl apply -f k8s-secret.yaml
 
+# should not be a part of restart as all data would be lost
+# but must be a part of a new deployment
+#kubectl apply -f k8s-databases.yaml
+
 kubectl apply -f k8s-clients.yaml
 kubectl apply -f k8s-books.yaml
 kubectl apply -f k8s-cart.yaml
