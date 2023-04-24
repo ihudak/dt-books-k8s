@@ -13,8 +13,8 @@ data:
   payments_svc: payment-svc:86
   dynapay_svc: superpay-svc:87
   ratings_svc: ratings-svc:88
-  tenant_id: lrx09136
-  tenant_url: https://lrx09136.dev.dynatracelabs.com
+  tenant_id: <tenant_id> # lrx09136
+  tenant_url: <tenant_url> # https://lrx09136.dev.dynatracelabs.com
   clients_agent: otelAgent
   books_agent: oneAgent
   cart_agent: otelAgent
