@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: orders
-          image: ihudak/dt-orders-service:latest
+          image: ivangudak096/dt-orders-service:latest
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -101,6 +101,31 @@ spec:
                 configMapKeyRef:
                   name: bookstore-configmap
                   key: ratings_svc
+            - name:   AGENT
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: orders_agent
+            - name:   TENANT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: tenant_id
+            - name:   TENANT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: bookstore-configmap
+                  key: tenant_url
+            - name: OA_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: bookstore-secret
+                  key: oneagent-token
+            - name: OTEL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: bookstore-secret
+                  key: otel-token
           resources:
             limits:
               cpu: 900m
@@ -119,7 +144,7 @@ spec:
   type: LoadBalancer
   ports:
     - name: http
-      port: 80
+      port: 85
       protocol: TCP
       targetPort: 8080
       nodePort: 30005
