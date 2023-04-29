@@ -3,7 +3,9 @@ kubectl apply -f secret.yaml
 
 # does not have to be a part of restart as all data would be lost
 # but must be a part of a new deployment
-kubectl apply -f databases.yaml
+if [ $# -gt 0 ] && [ $1 = "-all" ]; then
+  kubectl apply -f databases.yaml;
+fi
 
 kubectl apply -f clients.yaml
 kubectl apply -f books.yaml

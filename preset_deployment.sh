@@ -36,7 +36,7 @@ fi
 
 if [ $1 = "-agents" ]; then AGENT=agents; else AGENT=noagent; fi
 
-if [ $# -eq 2 ] && [ $2 = "-arm" ]; then PLATFORM="arm64"; else PLATFORM="x64"; fi
+if [ $# -gt 1 ] && [ $2 = "-arm" ]; then PLATFORM="arm64"; else PLATFORM="x64"; fi
 
 reset_settings
 sed -i "s/-{AGENT}-{ARCH}:latest/-$AGENT-$PLATFORM:latest/g" *.yaml

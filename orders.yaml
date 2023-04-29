@@ -11,6 +11,11 @@ spec:
       app: orders
   template:
     metadata:
+      annotations:
+        metrics.dynatrace.com/path: /stats/prometheus
+        metrics.dynatrace.com/port: "15020"
+        metrics.dynatrace.com/scrape: "true"
+        metrics.dynatrace.com/secure: "false"
       labels:
         app: orders
     spec:

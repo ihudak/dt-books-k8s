@@ -24,7 +24,7 @@ fi
 
 if [ $2 = "-agents" ]; then AGENT=agents; else AGENT=noagent; fi
 
-if [ $# -eq 3 ] && [ $3 = "-arm" ]; then
+if [ $# -gt 2 ] && [ $3 = "-arm" ]; then
   PLATFORM="arm64";
   PLATFORM_FULL="arm64/v8";
 else

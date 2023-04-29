@@ -11,6 +11,11 @@ spec:
       app: ratings
   template:
     metadata:
+      annotations:
+        metrics.dynatrace.com/path: /stats/prometheus
+        metrics.dynatrace.com/port: "15020"
+        metrics.dynatrace.com/scrape: "true"
+        metrics.dynatrace.com/secure: "false"
       labels:
         app: ratings
     spec:

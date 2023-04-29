@@ -8,6 +8,9 @@ kubectl delete -f payment.yaml
 kubectl delete -f dynapay.yaml
 kubectl delete -f ingest.yaml
 kubectl delete -f bookstore.yaml
-# kubectl delete -f databases.yaml
-# kubectl delete -f secret.yaml
-# kubectl delete -f config.yaml
+
+if [ $# -gt 0 ] && [ $1 = "-all" ]; then
+  kubectl delete -f databases.yaml;
+  kubectl delete -f secret.yaml;
+  kubectl delete -f config.yaml;
+fi
