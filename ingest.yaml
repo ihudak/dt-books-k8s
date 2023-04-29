@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: ingest
-          image: ivangudak096/ingest-{AGENT}-{ARCH}:latest
+          image: ivangudak096/dataloader-{AGENT}-{ARCH}:latest
           ports:
             - containerPort: 8080
             - containerPort: 5005
