@@ -1,24 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bookstore
+  name: payment
   labels:
-    app: bookstore
+    app: payment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bookstore
+      app: payment
   template:
     metadata:
       labels:
-        app: bookstore
+        app: payment
     spec:
       containers:
-        - name: bookstore
-          image: ivangudak096/dt-bookstore-webapp:latest
+        - name: payment
+          image: ivangudak096/payment-{AGENT}-{ARCH}:latest
           ports:
-            - containerPort: 4200
+            - containerPort: 8080
+            - containerPort: 5005
           env:
             - name: DT_SERVER_PORT
               value: "8080"
@@ -30,7 +31,7 @@ spec:
             - name: DT_MYSQL_PORT
               value: "3306"
             - name: DT_MYSQL_DBNAME
-              value: none # DB NAME HERE
+              value: dt_books_payments # DB NAME HERE
             - name: DT_MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -104,7 +105,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
-                  key: web_agent
+                  key: payment_agent
             - name:   TENANT_ID
               valueFrom:
                 configMapKeyRef:
@@ -127,22 +128,28 @@ spec:
                   key: otel-token
           resources:
             limits:
-              cpu: 1000m
-              memory: 4Gi
+              cpu: 700m
+              memory: 640Mi
             requests:
               cpu: 250m
-              memory: 2Gi
+              memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: bookstore-svc
+  name: payment-svc
 spec:
   selector:
-    app: bookstore
+    app: payment
   type: LoadBalancer
   ports:
-    - port: 90
+    - name: http
+      port: 86
       protocol: TCP
-      targetPort: 4200
-      nodePort: 30000
+      targetPort: 8080
+      nodePort: 30006
+    - name: debug
+      port: 5006
+      protocol: TCP
+      targetPort: 5005
+      nodePort: 32006

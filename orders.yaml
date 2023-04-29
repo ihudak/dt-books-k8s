@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ingest
+  name: orders
   labels:
-    app: ingest
+    app: orders
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ingest
+      app: orders
   template:
     metadata:
       labels:
-        app: ingest
+        app: orders
     spec:
       containers:
-        - name: ingest
-          image: ivangudak096/dt-ingest-service:latest
+        - name: orders
+          image: ivangudak096/orders-{AGENT}-{ARCH}:latest
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -50,7 +50,7 @@ spec:
             - name: DT_PG_PORT
               value: "5432"
             - name: DT_PG_DBNAME
-              value: none # DB NAME HERE
+              value: dt_books_orders # DB NAME HERE
             - name: DT_PG_USER
               valueFrom:
                 secretKeyRef:
@@ -105,7 +105,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
-                  key: ingest_agent
+                  key: orders_agent
             - name:   TENANT_ID
               valueFrom:
                 configMapKeyRef:
@@ -128,28 +128,28 @@ spec:
                   key: otel-token
           resources:
             limits:
-              cpu: 1000m
+              cpu: 900m
               memory: 1Gi
             requests:
-              cpu: 250m
-              memory: 768Mi
+              cpu: 300m
+              memory: 512Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ingest-svc
+  name: orders-svc
 spec:
   selector:
-    app: ingest
+    app: orders
   type: LoadBalancer
   ports:
     - name: http
-      port: 89
+      port: 85
       protocol: TCP
       targetPort: 8080
-      nodePort: 30009
+      nodePort: 30005
     - name: debug
-      port: 5009
+      port: 5005
       protocol: TCP
       targetPort: 5005
-      nodePort: 32009
+      nodePort: 32005

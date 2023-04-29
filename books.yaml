@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: books
-          image: ivangudak096/dt-books-service:latest
+          image: ivangudak096/books-{AGENT}-{ARCH}:latest
           ports:
             - containerPort: 8080
             - containerPort: 5005

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cart
+  name: ratings
   labels:
-    app: cart
+    app: ratings
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cart
+      app: ratings
   template:
     metadata:
       labels:
-        app: cart
+        app: ratings
     spec:
       containers:
-        - name: cart
-          image: ivangudak096/dt-cart-service:latest
+        - name: ratings
+          image: ivangudak096/ratings-{AGENT}-{ARCH}:latest
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -31,7 +31,7 @@ spec:
             - name: DT_MYSQL_PORT
               value: "3306"
             - name: DT_MYSQL_DBNAME
-              value: dt_books_cart # DB NAME HERE
+              value: dt_books_ratings # DB NAME HERE
             - name: DT_MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -105,7 +105,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
-                  key: cart_agent
+                  key: ratings_agent
             - name:   TENANT_ID
               valueFrom:
                 configMapKeyRef:
@@ -131,25 +131,25 @@ spec:
               cpu: 700m
               memory: 640Mi
             requests:
-              cpu: 200m
-              memory: 512Mi
+              cpu: 250m
+              memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: cart-svc
+  name: ratings-svc
 spec:
   selector:
-    app: cart
+    app: ratings
   type: LoadBalancer
   ports:
     - name: http
-      port: 83
+      port: 88
       protocol: TCP
       targetPort: 8080
-      nodePort: 30003
+      nodePort: 30008
     - name: debug
-      port: 5003
+      port: 5008
       protocol: TCP
       targetPort: 5005
-      nodePort: 32003
+      nodePort: 32008

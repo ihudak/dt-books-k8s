@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: superpay
+  name: ingest
   labels:
-    app: superpay
+    app: ingest
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: superpay
+      app: ingest
   template:
     metadata:
       labels:
-        app: superpay
+        app: ingest
     spec:
       containers:
-        - name: superpay
-          image: ivangudak096/dt-dynapay-service:latest
+        - name: ingest
+          image: ivangudak096/ingest-{AGENT}-{ARCH}:latest
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -31,7 +31,7 @@ spec:
             - name: DT_MYSQL_PORT
               value: "3306"
             - name: DT_MYSQL_DBNAME
-              value: dt_books_dynapays # DB NAME HERE
+              value: none # DB NAME HERE
             - name: DT_MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -105,7 +105,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
-                  key: dynapay_agent
+                  key: ingest_agent
             - name:   TENANT_ID
               valueFrom:
                 configMapKeyRef:
@@ -128,28 +128,28 @@ spec:
                   key: otel-token
           resources:
             limits:
-              cpu: 700m
-              memory: 640Mi
+              cpu: 1000m
+              memory: 1Gi
             requests:
-              cpu: 200m
-              memory: 256Mi
+              cpu: 250m
+              memory: 768Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: superpay-svc
+  name: ingest-svc
 spec:
   selector:
-    app: superpay
+    app: ingest
   type: LoadBalancer
   ports:
     - name: http
-      port: 87
+      port: 89
       protocol: TCP
       targetPort: 8080
-      nodePort: 30007
+      nodePort: 30009
     - name: debug
-      port: 5007
+      port: 5009
       protocol: TCP
       targetPort: 5005
-      nodePort: 32007
+      nodePort: 32009

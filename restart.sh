@@ -1,17 +1,17 @@
-kubectl apply -f k8s-config.yaml
-kubectl apply -f k8s-secret.yaml
+kubectl apply -f config.yaml
+kubectl apply -f secret.yaml
 
-# should not be a part of restart as all data would be lost
+# does not have to be a part of restart as all data would be lost
 # but must be a part of a new deployment
-#kubectl apply -f k8s-databases.yaml
+kubectl apply -f databases.yaml
 
-kubectl apply -f k8s-clients.yaml
-kubectl apply -f k8s-books.yaml
-kubectl apply -f k8s-cart.yaml
-kubectl apply -f k8s-storage.yaml
-kubectl apply -f k8s-orders.yaml
-kubectl apply -f k8s-payment.yaml
-kubectl apply -f k8s-dynapay.yaml
-kubectl apply -f k8s-ingest.yaml
-kubectl apply -f k8s-ratings.yaml
-kubectl apply -f k8s-bookstore.yaml
+kubectl apply -f clients.yaml
+kubectl apply -f books.yaml
+kubectl apply -f cart.yaml
+kubectl apply -f storage.yaml
+kubectl apply -f orders.yaml
+kubectl apply -f payment.yaml
+kubectl apply -f dynapay.yaml
+kubectl apply -f ingest.yaml
+kubectl apply -f ratings.yaml
+kubectl apply -f bookstore.yaml

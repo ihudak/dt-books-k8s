@@ -10,12 +10,12 @@ Purposes: demonstrating of Dynatrace capabilities in high-load and unhealthy env
 
 == Configuration
 === configmap
-. Set your tenant's id and URL in *k8s-config.yaml*
+. Set your tenant's id and URL in *config.yaml*
 
     tenant_id: <tenant-id> ## for instance, fdg3423
     tenant_url: <url> ## e.g. https://fdg3423.sprint.dynatracelabs.com
 
-. Define instrumentation (OneAgent or Otel) for the microservices in *k8s-config.yaml*
+. Define instrumentation (OneAgent or Otel) for the microservices in *config.yaml*
 
     <microservice>_agent: [oneAgent|otelAgent|none] # set for all *_agent records
 
@@ -41,7 +41,7 @@ Purposes: demonstrating of Dynatrace capabilities in high-load and unhealthy env
     # note1: this will make a multiline output. Please concat all lines into a single one
     # note2: although the scope looks weird, there's no mistake.
 
-. Put tokens in the secrets, *k8s-secret.yaml* file
+. Put tokens in the secrets, *secret.yaml* file
 
     oneagent-token: <base64-ed OneAgent token (make sure you concatenated if it's multiline)>
     otel-token: <base64-ed Otel token (make sure you concatenated if it's multiline)>
@@ -50,35 +50,35 @@ Purposes: demonstrating of Dynatrace capabilities in high-load and unhealthy env
 
 1. Create configmap:
 
-    kubectl apply -f k8s-config.yaml
+    kubectl apply -f config.yaml
 
 
 2. Create secrets:
 
-    kubectl apply -f k8s-secret.yaml
+    kubectl apply -f secret.yaml
 
 
 3. Create databases:
 
-    kubectl apply -f k8s-databases.yaml
+    kubectl apply -f databases.yaml
 
 
 4. Create all services:
 
-    kubectl apply -f k8s-clients.yaml
-    kubectl apply -f k8s-books.yaml
-    kubectl apply -f k8s-cart.yaml
-    kubectl apply -f k8s-storage.yaml
-    kubectl apply -f k8s-orders.yaml
-    kubectl apply -f k8s-ratings.yaml
-    kubectl apply -f k8s-payment.yaml
-    kubectl apply -f k8s-dynapay.yaml
-    kubectl apply -f k8s-ingest.yaml
+    kubectl apply -f clients.yaml
+    kubectl apply -f books.yaml
+    kubectl apply -f cart.yaml
+    kubectl apply -f storage.yaml
+    kubectl apply -f orders.yaml
+    kubectl apply -f ratings.yaml
+    kubectl apply -f payment.yaml
+    kubectl apply -f dynapay.yaml
+    kubectl apply -f ingest.yaml
 
 
 5. Create web app:
 
-    kubectl apply -f k8s-bookstore.yaml
+    kubectl apply -f bookstore.yaml
 
 
 

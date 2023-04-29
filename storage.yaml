@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: clients
+  name: storage
   labels:
-    app: clients
+    app: storage
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: clients
+      app: storage
   template:
     metadata:
       labels:
-        app: clients
+        app: storage
     spec:
       containers:
-        - name: clients
-          image: ivangudak096/dt-clients-service:latest
+        - name: storage
+          image: ivangudak096/storage-{AGENT}-{ARCH}:latest
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -31,7 +31,7 @@ spec:
             - name: DT_MYSQL_PORT
               value: "3306"
             - name: DT_MYSQL_DBNAME
-              value: dt_books_clients # DB NAME HERE
+              value: none # DB NAME HERE
             - name: DT_MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -50,7 +50,7 @@ spec:
             - name: DT_PG_PORT
               value: "5432"
             - name: DT_PG_DBNAME
-              value: none # DB NAME HERE
+              value: dt_books_storage # DB NAME HERE
             - name: DT_PG_USER
               valueFrom:
                 secretKeyRef:
@@ -105,7 +105,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
-                  key: clients_agent
+                  key: storage_agent
             - name:   TENANT_ID
               valueFrom:
                 configMapKeyRef:
@@ -137,19 +137,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: clients-svc
+  name: storage-svc
 spec:
   selector:
-    app: clients
+    app: storage
   type: LoadBalancer
   ports:
     - name: http
-      port: 81
+      port: 84
       protocol: TCP
       targetPort: 8080
-      nodePort: 30001
+      nodePort: 30004
     - name: debug
-      port: 5001
+      port: 5004
       protocol: TCP
       targetPort: 5005
-      nodePort: 32001
+      nodePort: 32004

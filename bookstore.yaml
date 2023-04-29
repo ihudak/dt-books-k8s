@@ -1,25 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orders
+  name: bookstore
   labels:
-    app: orders
+    app: bookstore
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: orders
+      app: bookstore
   template:
     metadata:
       labels:
-        app: orders
+        app: bookstore
     spec:
       containers:
-        - name: orders
-          image: ivangudak096/dt-orders-service:latest
+        - name: bookstore
+          image: ivangudak096/bookstore-webapp-{ARCH}:latest
           ports:
-            - containerPort: 8080
-            - containerPort: 5005
+            - containerPort: 4200
           env:
             - name: DT_SERVER_PORT
               value: "8080"
@@ -50,7 +49,7 @@ spec:
             - name: DT_PG_PORT
               value: "5432"
             - name: DT_PG_DBNAME
-              value: dt_books_orders # DB NAME HERE
+              value: none # DB NAME HERE
             - name: DT_PG_USER
               valueFrom:
                 secretKeyRef:
@@ -105,7 +104,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
-                  key: orders_agent
+                  key: web_agent
             - name:   TENANT_ID
               valueFrom:
                 configMapKeyRef:
@@ -128,28 +127,22 @@ spec:
                   key: otel-token
           resources:
             limits:
-              cpu: 900m
-              memory: 1Gi
+              cpu: 1000m
+              memory: 4Gi
             requests:
-              cpu: 300m
-              memory: 512Mi
+              cpu: 250m
+              memory: 2Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: orders-svc
+  name: bookstore-svc
 spec:
   selector:
-    app: orders
+    app: bookstore
   type: LoadBalancer
   ports:
-    - name: http
-      port: 85
+    - port: 90
       protocol: TCP
-      targetPort: 8080
-      nodePort: 30005
-    - name: debug
-      port: 5005
-      protocol: TCP
-      targetPort: 5005
-      nodePort: 32005
+      targetPort: 4200
+      nodePort: 30000

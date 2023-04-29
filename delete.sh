@@ -1,10 +1,13 @@
-kubectl delete -f k8s-clients.yaml
-kubectl delete -f k8s-books.yaml
-kubectl delete -f k8s-cart.yaml
-kubectl delete -f k8s-storage.yaml
-kubectl delete -f k8s-orders.yaml
-kubectl delete -f k8s-payment.yaml
-kubectl delete -f k8s-dynapay.yaml
-kubectl delete -f k8s-ingest.yaml
-kubectl delete -f k8s-ratings.yaml
-kubectl delete -f k8s-bookstore.yaml
+kubectl delete -f clients.yaml
+kubectl delete -f books.yaml
+kubectl delete -f cart.yaml
+kubectl delete -f storage.yaml
+kubectl delete -f orders.yaml
+kubectl delete -f ratings.yaml
+kubectl delete -f payment.yaml
+kubectl delete -f dynapay.yaml
+kubectl delete -f ingest.yaml
+kubectl delete -f bookstore.yaml
+# kubectl delete -f databases.yaml
+# kubectl delete -f secret.yaml
+# kubectl delete -f config.yaml

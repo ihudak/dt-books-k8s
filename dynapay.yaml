@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ratings
+  name: superpay
   labels:
-    app: ratings
+    app: superpay
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ratings
+      app: superpay
   template:
     metadata:
       labels:
-        app: ratings
+        app: superpay
     spec:
       containers:
-        - name: ratings
-          image: ivangudak096/dt-ratings-service:latest
+        - name: superpay
+          image: ivangudak096/dynapay-{AGENT}-{ARCH}:latest
           ports:
             - containerPort: 8080
             - containerPort: 5005
@@ -31,7 +31,7 @@ spec:
             - name: DT_MYSQL_PORT
               value: "3306"
             - name: DT_MYSQL_DBNAME
-              value: dt_books_ratings # DB NAME HERE
+              value: dt_books_dynapays # DB NAME HERE
             - name: DT_MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -105,7 +105,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: bookstore-configmap
-                  key: ratings_agent
+                  key: dynapay_agent
             - name:   TENANT_ID
               valueFrom:
                 configMapKeyRef:
@@ -131,25 +131,25 @@ spec:
               cpu: 700m
               memory: 640Mi
             requests:
-              cpu: 250m
+              cpu: 200m
               memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ratings-svc
+  name: superpay-svc
 spec:
   selector:
-    app: ratings
+    app: superpay
   type: LoadBalancer
   ports:
     - name: http
-      port: 88
+      port: 87
       protocol: TCP
       targetPort: 8080
-      nodePort: 30008
+      nodePort: 30007
     - name: debug
-      port: 5008
+      port: 5007
       protocol: TCP
       targetPort: 5005
-      nodePort: 32008
+      nodePort: 32007
