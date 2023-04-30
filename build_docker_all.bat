@@ -21,7 +21,6 @@ SET DT_PROJECTS[6]=payment
 SET DT_PROJECTS[7]=dynapay
 SET DT_PROJECTS[8]=dataloader
 
-
 cd %BATCH_DIR%\..\%DT_JAVA_AGENT%
 ECHO ============ Building Agents =================
 CALL push_docker.bat
@@ -35,7 +34,7 @@ ECHO ============= Building GUI ===================
 CALL push_docker.bat
 timeout 3
 
-ECHO ============= Building Projects ===================
+ECHO ============= Building Java Projects ===================
 setlocal ENABLEDELAYEDEXPANSION
 SET "x=0"
 :SymLoop
@@ -52,16 +51,12 @@ if defined DT_PROJECTS[%x%] (
         ECHO No Gradle build is needed for !PROJ! . File exists: %JAR_FILE%
         ECHO.
     )
-    ECHO x64 NoAg
     CALL %BATCH_DIR%\push_docker.bat !PROJ! -noagent
     timeout 3
-    ECHO x64 Ag
     CALL %BATCH_DIR%\push_docker.bat !PROJ! -agents
     timeout 3
-    ECHO ARM NoAg
     CALL %BATCH_DIR%\push_docker.bat !PROJ! -noagent -arm
     timeout 3
-    ECHO ARM Ag
     CALL %BATCH_DIR%\push_docker.bat !PROJ! -agents -arm
     timeout 3
     SET /a "x+=1"

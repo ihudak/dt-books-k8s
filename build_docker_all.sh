@@ -33,13 +33,9 @@ for i in $dt_projects; do
   else
     echo; echo "No Gradle build is needed for " $i". File exists " $JAR_FILE; echo;
   fi
-  echo "x64 NoAg"
   $SCRIPT_DIR/push_docker.sh $i -noagent
-  echo "x64 Ag"
   $SCRIPT_DIR/push_docker.sh $i -agents
-  echo "ARM NoAg"
   $SCRIPT_DIR/push_docker.sh $i -noagent -arm
-  echo "ARM Ag"
   $SCRIPT_DIR/push_docker.sh $i -agents -arm
 done
 
