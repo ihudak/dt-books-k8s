@@ -27,7 +27,7 @@ IF "%~3"=="-arm" (
 SET PROJECT=%1
 SET IMG_NAME=%BASE_REPO%/%PROJECT%-%AGENT%-%PLATFORM%:%TAG%
 
-ECHO ################# Building %PROJECT%... #################
+ECHO ### Building %PROJECT% -=- %PLATFORM% -=- %AGENT%...
 
 REM call gradlew.bat clean build
 docker image build ^

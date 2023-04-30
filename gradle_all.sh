@@ -13,6 +13,8 @@ echo "============ Building Projects ================="
 for i in $dt_projects; do
   PROJ_DIR=$PREFIX$i
   cd $SCRIPT_DIR/../$PROJ_DIR
+  echo "Pulling " $i ...
+  git pull
   echo "Building " $i ...
   ./gradlew clean build
 done

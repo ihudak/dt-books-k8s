@@ -24,6 +24,8 @@ if defined DT_PROJECTS[%x%] (
     SET PROJ=!!DT_PROJECTS[%x%]!!
     SET PROJ_DIR=..\%PREFIX%!PROJ!
     CD %BATCH_DIR%\!PROJ_DIR!
+    ECHO ===================== PULLING !PROJ! ... ========================
+    git pull
     ECHO ===================== BUILDING !PROJ! ... ========================
     CALL .\gradlew.bat clean build
     timeout 3

@@ -4,6 +4,7 @@ echo "=============================================="
 
 SCRIPT_DIR="$( dirname -- "$0"; )"
 SCRIPT_DIR=$SCRIPT_DIR/../dt-books-k8s
+JAR_FILE=build/libs/*0.0.1-SNAPSHOT.jar
 
 PREFIX=dt-books-
 DT_JAVA_AGENT=$PREFIX\java-agents
@@ -26,8 +27,12 @@ echo "============ Building Projects ================="
 for i in $dt_projects; do
   PROJ_DIR=$PREFIX$i
   cd $SCRIPT_DIR/../$PROJ_DIR
-  echo "Building " $i ...
-  ./gradlew clean build
+  if [ ! -f $JAR_FILE ]; then
+    echo "Building " $i ...;
+    ./gradlew clean build;
+  else
+    echo; echo "No Gradle build is needed for " $i". File exists " $JAR_FILE; echo;
+  fi
   echo "x64 NoAg"
   $SCRIPT_DIR/push_docker.sh $i -noagent
   echo "x64 Ag"

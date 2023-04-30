@@ -4,6 +4,8 @@ ECHO.
 ECHO ==============================================
 
 SET BATCH_DIR=%~dp0
+SET JAR_FILE=build\libs\*0.0.1-SNAPSHOT.jar
+
 SET PREFIX=dt-books-
 SET DT_JAVA_AGENT=%PREFIX%java-agents
 SET DT_NO_AGENT=%PREFIX%noagents
@@ -41,9 +43,15 @@ if defined DT_PROJECTS[%x%] (
     SET PROJ=!!DT_PROJECTS[%x%]!!
     SET PROJ_DIR=..\%PREFIX%!PROJ!
     CD %BATCH_DIR%\!PROJ_DIR!
-    ECHO ===================== BUILDING !PROJ! ... ========================
-    CALL .\gradlew.bat clean build
-    timeout 3
+    if not exist %JAR_FILE% (
+        ECHO ===================== BUILDING !PROJ! ... ========================
+        CALL .\gradlew.bat clean build
+        timeout 3
+    ) else (
+        ECHO.
+        ECHO No Gradle build is needed for !PROJ! . File exists: %JAR_FILE%
+        ECHO.
+    )
     ECHO x64 NoAg
     CALL %BATCH_DIR%\push_docker.bat !PROJ! -noagent
     timeout 3

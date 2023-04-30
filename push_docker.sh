@@ -35,7 +35,7 @@ fi
 PROJECT=$1
 IMG_NAME=$BASE_REPO/$PROJECT-$AGENT-$PLATFORM:$TAG
 
-echo "########## Building "$PROJECT...
+echo "### Building "$PROJECT " -=- " $PLATFORM " -=- " $AGENT...
 
 # ./gradlew clean build
 docker image build \
