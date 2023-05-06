@@ -31,6 +31,7 @@ elif [ $1 != "-agents" ] && [ $1 != "-noagent" ] && [ $1 != "-reset" ]; then
   display_usage;
 elif [ $1 = "-reset" ]; then
   reset_settings
+  echo "Reset Completed"
   exit 0
 fi
 
@@ -41,3 +42,4 @@ if [ $# -gt 1 ] && [ $2 = "-arm" ]; then PLATFORM="arm64"; else PLATFORM="x64"; 
 reset_settings
 sed -i "s/-{AGENT}-{ARCH}:latest/-$AGENT-$PLATFORM:latest/g" *.yaml
 sed -i "s/bookstore-webapp-{ARCH}:latest/bookstore-webapp-$PLATFORM:latest/g" bookstore.yaml
+echo "Preparation done: $AGENT $PLATFORM"
