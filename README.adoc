@@ -27,7 +27,7 @@ Purposes: demonstrating of Dynatrace capabilities in high-load and unhealthy env
 ... click *Generate*
 ... convert the token to base64 (here is a Linux command):
 
-    echo -n <token> | base64
+    echo -n <token> | base64 -w 0
     # note: this will make a multiline output. Please concat all lines into a single one
 
 .. OneAgent token
@@ -37,7 +37,7 @@ Purposes: demonstrating of Dynatrace capabilities in high-load and unhealthy env
 ... click *Generate*
 ... convert the token to base64 (here is a Linux command):
 
-    echo -n <token> | base64
+    echo -n <token> | base64 -w 0
     # note1: this will make a multiline output. Please concat all lines into a single one
     # note2: although the scope looks weird, there's no mistake.
 
